@@ -1,0 +1,18 @@
+#include <stdio.h>
+int main(void) {
+    int n,i,t=0,done=0,at[20],bt[20],rem[20],pr[20],ct[20],wt[20],tat[20],best;
+    float aw=0,aa=0;
+    printf("Enter number of processes: "); scanf("%d",&n);
+    for(i=0;i<n;i++){printf("Arrival, burst, priority for P%d: ",i+1);scanf("%d%d%d",&at[i],&bt[i],&pr[i]);rem[i]=bt[i];}
+    while(done<n){
+        best=-1;
+        for(i=0;i<n;i++) if(at[i]<=t && rem[i]>0 && (best==-1 || pr[i]<pr[best])) best=i;
+        if(best==-1){t++;continue;}
+        rem[best]--; t++;
+        if(rem[best]==0){ct[best]=t;done++;}
+    }
+    printf("Process\\tWT\\tTAT\n");
+    for(i=0;i<n;i++){tat[i]=ct[i]-at[i];wt[i]=tat[i]-bt[i];aw+=wt[i];aa+=tat[i];printf("P%d\\t%d\\t%d\n",i+1,wt[i],tat[i]);}
+    printf("Average WT = %.2f\\nAverage TAT = %.2f\n",aw/n,aa/n);
+    return 0;
+}
