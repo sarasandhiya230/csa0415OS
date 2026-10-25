@@ -1,0 +1,13 @@
+#include <stdio.h>
+typedef struct { int id; char name[30]; float salary; } Employee;
+int main(void){
+    FILE *fp=fopen("employee.dat","wb+"); Employee e; int n,i,pos;
+    if(!fp){perror("file");return 1;}
+    printf("Number of employees: ");scanf("%d",&n);
+    for(i=0;i<n;i++){printf("Enter ID name salary: ");scanf("%d%29s%f",&e.id,e.name,&e.salary);fwrite(&e,sizeof(e),1,fp);}
+    printf("Record number to read (1-%d): ",n);scanf("%d",&pos);
+    if(pos<1||pos>n)printf("Invalid record number\n");
+    else {fseek(fp,(long)(pos-1)*sizeof(e),SEEK_SET);fread(&e,sizeof(e),1,fp);
+        printf("ID: %d Name: %s Salary: %.2f\n",e.id,e.name,e.salary);}
+    fclose(fp);return 0;
+}
