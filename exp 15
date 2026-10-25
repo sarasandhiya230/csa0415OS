@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <string.h>
+int main(void){
+    char user[10][20],file[10][20][30];int count[10]={0},nu=0,ch,i,u;char name[30],uname[20];
+    while(1){
+        printf("\\n1.Add user 2.Create file 3.List user files 4.Exit: ");scanf("%d",&ch);
+        if(ch==1){printf("User name: ");scanf("%19s",uname);strcpy(user[nu++],uname);printf("User added\n");}
+        else if(ch==2){printf("User index (1-%d): ",nu);scanf("%d",&u);if(u<1||u>nu){printf("Invalid user\n");continue;}
+            printf("File name: ");scanf("%29s",name);strcpy(file[u-1][count[u-1]++],name);printf("File created\n");}
+        else if(ch==3){printf("User index (1-%d): ",nu);scanf("%d",&u);if(u<1||u>nu){printf("Invalid user\n");continue;}
+            printf("Files of %s:\n",user[u-1]);for(i=0;i<count[u-1];i++)printf("%s\n",file[u-1][i]);}
+        else break;
+    }return 0;
+}
