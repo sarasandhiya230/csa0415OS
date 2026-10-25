@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <string.h>
+int main(void){
+    char files[20][30],name[30]; int n=0,ch,i,found;
+    while(1){
+        printf("\\n1.Create 2.List 3.Search 4.Exit: ");scanf("%d",&ch);
+        if(ch==1){printf("File name: ");scanf("%29s",name);found=0;
+            for(i=0;i<n;i++)if(strcmp(files[i],name)==0)found=1;
+            if(found)printf("File already exists\n");else{strcpy(files[n++],name);printf("File created\n");}}
+        else if(ch==2){for(i=0;i<n;i++)printf("%s\n",files[i]);}
+        else if(ch==3){printf("Search name: ");scanf("%29s",name);found=0;
+            for(i=0;i<n;i++)if(strcmp(files[i],name)==0)found=1;
+            printf(found?"File found\n":"File not found\n");}
+        else break;
+    }return 0;
+}
