@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <pthread.h>
+#include <semaphore.h>
+sem_t room,mutex; int readers=0,shared_data=10;
+void *reader(void *x){sem_wait(&mutex);readers++;if(readers==1)sem_wait(&room);sem_post(&mutex);
+printf("Reader reads: %d\n",shared_data);
+sem_wait(&mutex);readers--;if(readers==0)sem_post(&room);sem_post(&mutex);return NULL;}
+void *writer(void *x){sem_wait(&room);shared_data++;printf("Writer updates data to: %d\n",shared_data);sem_post(&room);return NULL;}
+int main(void){pthread_t r,w;sem_init(&room,0,1);sem_init(&mutex,0,1);
+pthread_create(&r,NULL,reader,NULL);pthread_join(r,NULL);pthread_create(&w,NULL,writer,NULL);pthread_join(w,NULL);
+sem_destroy(&room);sem_destroy(&mutex);return 0;}
