@@ -1,0 +1,25 @@
+#include <stdio.h>
+void allocate(int b[],int nb,int p[],int np,int mode){
+    int i,j,idx,rem[20]; for(i=0;i<nb;i++) rem[i]=b[i];
+    for(i=0;i<np;i++){
+        idx=-1;
+        for(j=0;j<nb;j++) if(rem[j]>=p[i]){
+            if(idx==-1 || (mode==1 && rem[j]<rem[idx]) ||
+               (mode==2 && rem[j]>rem[idx])) idx=j;
+            if(mode==0){idx=j;break;}
+        }
+        if(idx!=-1){printf("P%d -> Block %d\n",i+1,idx+1);rem[idx]-=p[i];}
+        else printf("P%d -> Not allocated\n",i+1);
+    }
+}
+int main(void){
+    int b[20],p[20],nb,np,i;
+    printf("Number of blocks: ");scanf("%d",&nb);
+    for(i=0;i<nb;i++){printf("Block %d size: ",i+1);scanf("%d",&b[i]);}
+    printf("Number of processes: ");scanf("%d",&np);
+    for(i=0;i<np;i++){printf("Process %d size: ",i+1);scanf("%d",&p[i]);}
+    printf("First Fit:\n");allocate(b,nb,p,np,0);
+    printf("Best Fit:\n");allocate(b,nb,p,np,1);
+    printf("Worst Fit:\n");allocate(b,nb,p,np,2);
+    return 0;
+}
