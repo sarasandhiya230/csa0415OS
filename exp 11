@@ -1,0 +1,13 @@
+#include <stdio.h>
+#include <pthread.h>
+void *show(void *arg) {
+    printf("Hello from thread!\n");
+    return NULL;
+}
+int main(void) {
+    pthread_t t;
+    if(pthread_create(&t,NULL,show,NULL)!=0){printf("Thread creation failed\n");return 1;}
+    pthread_join(t,NULL);
+    printf("Main thread finished.\n");
+    return 0;
+}
