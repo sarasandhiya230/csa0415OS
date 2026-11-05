@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+int main() {
+    int pages[] = {1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5};
+    int frames[3] = {-1, -1, -1};
+    int n = 12, faults = 0;
+    for (int i = 0; i < n; i++) {
+        int found = 0;
+        for (int j = 0; j < 3; j++)
+            if (frames[j] == pages[i])
+                found = 1;
+        if (!found) {
+            int replace = -1, farthest = -1;
+
+            for (int j = 0; j < 3; j++) {
+                int k;
+                for (k = i + 1; k < n; k++)
+                    if (frames[j] == pages[k])
+                        break;
+
+                if (k > farthest) {
+                    farthest = k;
+                    replace = j;
+                }
+            }
+            frames[replace] = pages[i];
+            faults++;
+        }
+    }
+    printf("Total Page Faults = %d", faults);
+    return 0;
+}
