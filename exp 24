@@ -1,0 +1,15 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+int main() {
+    int fd;
+    char text[] = "Hello UNIX";
+    char buffer[50];
+    fd = open("sample.txt", O_CREAT | O_RDWR, 0644);
+    write(fd, text, sizeof(text));
+    lseek(fd, 0, SEEK_SET);
+    read(fd, buffer, sizeof(text));
+    printf("File Content: %s\n", buffer);
+    close(fd);
+    return 0;
+}
