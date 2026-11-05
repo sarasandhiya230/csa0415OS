@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int main() {
+    int pages[] = {1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5};
+    int frames[3] = {-1, -1, -1};
+    int time[3] = {0}, n = 12, faults = 0;
+    for (int i = 0; i < n; i++) {
+        int found = -1;
+        for (int j = 0; j < 3; j++)
+            if (frames[j] == pages[i])
+                found = j;
+        if (found != -1) {
+            time[found] = i;
+        } else {
+            int pos = 0;
+            for (int j = 1; j < 3; j++)
+                if (time[j] < time[pos])
+                    pos = j;
+            frames[pos] = pages[i];
+            time[pos] = i;
+            faults++;
+        }
+    }
+
+    printf("Total Page Faults = %d", faults);
+    return 0;
+}
