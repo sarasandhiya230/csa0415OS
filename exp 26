@@ -1,0 +1,16 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
+int main() {
+    int fd;
+    fd = open("test.txt", O_CREAT | O_WRONLY, 0644);
+    if (fd < 0) {
+        printf("File Opening Failed");
+        return 1;
+    }
+    write(fd, "Operating System", 17);
+    printf("File Created Successfully\n");
+    printf("Data Written Successfully\n");
+    close(fd);
+    return 0;
+}
