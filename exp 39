@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int a[] = {98, 183, 37, 122, 14, 124, 65, 67};
+    int head = 53, total = 0, temp;
+    for (int i = 0; i < 8; i++)
+        for (int j = i + 1; j < 8; j++)
+            if (a[i] > a[j]) {
+                temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+    printf("C-SCAN Disk Scheduling:\n");
+    for (int i = 0; i < 8; i++)
+        if (a[i] >= head) {
+            printf("%d -> ", a[i]);
+            total += abs(a[i] - head);
+            head = a[i];
+        }
+    total += 199 - head;
+    total += 199;
+    head = 0;
+    for (int i = 0; i < 8; i++)
+        if (a[i] < 53) {
+            printf("%d -> ", a[i]);
+            total += abs(a[i] - head);
+            head = a[i];
+        }
+    printf("\nTotal Head Movement = %d", total);
+    return 0;
+}
